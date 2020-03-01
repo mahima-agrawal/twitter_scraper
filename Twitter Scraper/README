@@ -1,0 +1,7 @@
+This program utilizes the Beautiful Soup package to scrape information about given twitter users from the web. When the program is run, it will prompt the user for a twitter handle, upon which it will return:
+
+Number of Followers
+Number Following
+Number of Tweets
+Number of Likes
+Date and Time Joined

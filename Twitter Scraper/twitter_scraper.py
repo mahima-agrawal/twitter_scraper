@@ -1,0 +1,25 @@
+from bs4 import BeautifulSoup
+import requests
+handle = input('Input your account name on Twitter: ')
+print("https://twitter.com/"+ handle)
+temp = requests.get('https://twitter.com/'+handle)
+bs = BeautifulSoup(temp.text,'lxml')
+# print(bs)
+try:
+    follow_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--followers'})
+    followers = follow_box.find('a').find('span',{'class':'ProfileNav-value'})
+    print("Number of followers: {} ".format(followers.get('data-count')))
+    following_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--following'})
+    following = following_box.find('a').find('span',{'class':'ProfileNav-value'})
+    print("Number following: {} ".format(following.get('data-count')))
+    tweet_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--tweets is-active'})
+    tweets= tweet_box.find('a').find('span',{'class':'ProfileNav-value'})
+    print("Number of tweets: {}".format(tweets.get('data-count')))
+    likes_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--favorites'})
+    likes = likes_box.find('a').find('span',{'class': 'ProfileNav-value'})
+    print("Number of likes: {}".format(likes.get('data-count')))
+    joined_box = bs.find('div',{'class':'ProfileHeaderCard-joinDate'})
+    joined = joined_box.find('span',{'class': 'ProfileHeaderCard-joinDateText js-tooltip u-dir'})
+    print("Joined: {}".format(joined.get('title')))
+except:
+    print('Account name not found...')
